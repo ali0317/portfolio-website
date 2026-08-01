@@ -1,0 +1,3 @@
+export PATH="/c/Users/Dell/.local/bin:$PATH"
+graphify . --code-only --update
+git add graphify-out/

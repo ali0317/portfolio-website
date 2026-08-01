@@ -1,0 +1,188 @@
+{
+  "communities": {
+    "0": [
+      "ref_src",
+      "tsconfig",
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_allowimportingtsextensions",
+      "tsconfig_compileroptions_isolatedmodules",
+      "tsconfig_compileroptions_jsx",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_moduledetection",
+      "tsconfig_compileroptions_moduleresolution",
+      "tsconfig_compileroptions_noemit",
+      "tsconfig_compileroptions_nofallthroughcasesinswitch",
+      "tsconfig_compileroptions_nouncheckedsideeffectimports",
+      "tsconfig_compileroptions_nounusedlocals",
+      "tsconfig_compileroptions_nounusedparameters",
+      "tsconfig_compileroptions_skiplibcheck",
+      "tsconfig_compileroptions_strict",
+      "tsconfig_compileroptions_target",
+      "tsconfig_compileroptions_usedefineforclassfields",
+      "tsconfig_include"
+    ],
+    "1": [
+      "husky",
+      "package_devdependencies",
+      "package_devdependencies_husky",
+      "package_devdependencies_tailwindcss",
+      "package_devdependencies_tailwindcss_vite",
+      "package_devdependencies_types_react",
+      "package_devdependencies_types_react_dom",
+      "package_devdependencies_typescript",
+      "package_devdependencies_vite",
+      "package_devdependencies_vitejs_plugin_react",
+      "tailwindcss",
+      "tailwindcss_vite",
+      "types_react",
+      "types_react_dom",
+      "typescript",
+      "vite",
+      "vitejs_plugin_react"
+    ],
+    "2": [
+      "package",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_prepare",
+      "package_scripts_preview",
+      "package_type",
+      "package_version"
+    ],
+    "3": [
+      "lucide_react",
+      "package_dependencies",
+      "package_dependencies_lucide_react",
+      "package_dependencies_react",
+      "package_dependencies_react_dom",
+      "react",
+      "react_dom"
+    ],
+    "4": [
+      "src_app",
+      "src_app_app",
+      "src_components_contact_contact",
+      "src_components_footer_footer",
+      "src_components_hero_hero",
+      "src_main"
+    ],
+    "5": [
+      "src_components_contact",
+      "src_components_footer",
+      "src_components_hero",
+      "src_components_icons",
+      "src_components_icons_githubicon",
+      "src_components_icons_linkedinicon"
+    ],
+    "6": [
+      "ref_dom",
+      "ref_dom_iterable",
+      "ref_es2020",
+      "tsconfig_compileroptions_lib"
+    ],
+    "7": [
+      "src_components_metrics",
+      "src_components_metrics_metriccard",
+      "src_components_metrics_metrics",
+      "src_components_metrics_usecountup"
+    ],
+    "8": [
+      "src_components_experience",
+      "src_components_experience_experience",
+      "src_components_experience_experiences"
+    ],
+    "9": [
+      "src_components_navbar",
+      "src_components_navbar_navbar",
+      "src_components_navbar_navlinks"
+    ],
+    "10": [
+      "src_components_projects",
+      "src_components_projects_projectcategories",
+      "src_components_projects_projects"
+    ],
+    "11": [
+      "src_components_skills",
+      "src_components_skills_categories",
+      "src_components_skills_skills"
+    ],
+    "12": [
+      "vite_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.10526315789473684,
+    "1": 0.11764705882352941,
+    "2": 0.2,
+    "3": 0.2857142857142857,
+    "4": 0.4,
+    "5": 0.7333333333333333,
+    "6": 0.5,
+    "7": 0.6666666666666666,
+    "8": 0.6666666666666666,
+    "9": 0.6666666666666666,
+    "10": 0.6666666666666666,
+    "11": 0.6666666666666666,
+    "12": 1.0
+  },
+  "gods": [
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 17
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 5
+    },
+    {
+      "id": "src_components_icons_githubicon",
+      "label": "GithubIcon()",
+      "degree": 4
+    },
+    {
+      "id": "src_components_icons_linkedinicon",
+      "label": "LinkedinIcon()",
+      "degree": 4
+    },
+    {
+      "id": "tsconfig_compileroptions_lib",
+      "label": "lib",
+      "degree": 4
+    },
+    {
+      "id": "src_app_app",
+      "label": "App()",
+      "degree": 2
+    },
+    {
+      "id": "src_components_contact_contact",
+      "label": "Contact()",
+      "degree": 2
+    },
+    {
+      "id": "src_components_experience_experience",
+      "label": "Experience()",
+      "degree": 2
+    },
+    {
+      "id": "src_components_footer_footer",
+      "label": "Footer()",
+      "degree": 2
+    },
+    {
+      "id": "src_components_hero_hero",
+      "label": "Hero()",
+      "degree": 2
+    }
+  ],
+  "surprises": [],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}
