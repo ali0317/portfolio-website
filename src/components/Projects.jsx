@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
-import { ExternalLink, Layers, ShoppingCart, Monitor, Cpu, Globe, BarChart3 } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ExternalLink, Layers, ShoppingCart, Monitor, Cpu, Globe, BarChart3, ArrowUpRight } from 'lucide-react'
 
 const projectCategories = ['All', 'Enterprise Systems', 'Real-Time Apps', 'E-Commerce & Portals', 'Specialized']
 
@@ -88,11 +89,9 @@ const projects = [
 
 export default function Projects({ darkMode }) {
   const [activeFilter, setActiveFilter] = useState('All')
-  const [animKey, setAnimKey] = useState(0)
 
   const handleFilter = useCallback((cat) => {
     setActiveFilter(cat)
-    setAnimKey((k) => k + 1)
   }, [])
 
   const filteredProjects = activeFilter === 'All'
@@ -100,120 +99,155 @@ export default function Projects({ darkMode }) {
     : projects.filter((p) => p.category === activeFilter)
 
   return (
-    <section id="projects" className="py-24 relative">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 max-w-xl section-line" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="py-24 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest mb-4 ${
-            darkMode ? 'bg-primary-500/10 text-primary-400 border border-primary-500/20' : 'bg-primary-50 text-primary-600 border border-primary-200'
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <span className={`inline-block px-4 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-widest mb-4 border ${
+            darkMode ? 'bg-primary-500/10 text-primary-400 border-primary-500/20' : 'bg-primary-50 text-primary-600 border-primary-200'
           }`}>
             Portfolio
           </span>
-          <h2 className={`text-3xl sm:text-4xl font-bold mb-4 ${
+          <h2 className={`font-display text-4xl sm:text-5xl font-black mb-6 tracking-tight ${
             darkMode ? 'text-white' : 'text-surface-900'
           }`}>
-            Featured Projects
+            Featured Work
           </h2>
-          <p className={`max-w-2xl mx-auto ${
-            darkMode ? 'text-surface-200/70' : 'text-surface-600'
+          <p className={`max-w-2xl mx-auto text-lg ${
+            darkMode ? 'text-surface-300' : 'text-surface-600'
           }`}>
-            A selection of enterprise systems and applications I've designed and built
+            A selection of enterprise systems, real-time applications, and specialized portals I've architected and delivered.
           </p>
-        </div>
+        </motion.div>
 
         {/* Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex flex-wrap justify-center gap-3 mb-16"
+        >
           {projectCategories.map((cat) => (
             <button
               key={cat}
               onClick={() => handleFilter(cat)}
-              className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 cursor-pointer transform hover:scale-105 ${
+              className={`relative px-6 py-3 rounded-full text-sm font-semibold transition-colors duration-300 ${
                 activeFilter === cat
-                  ? 'bg-primary-500 text-white shadow-lg shadow-primary-500/25 scale-105'
+                  ? darkMode ? 'text-surface-900' : 'text-white'
                   : darkMode
-                    ? 'text-surface-200/70 hover:text-white hover:bg-white/5 border border-surface-700/50'
-                    : 'text-surface-600 hover:text-surface-900 hover:bg-surface-100 border border-surface-200'
+                    ? 'text-surface-300 hover:text-white bg-surface-800/50 hover:bg-surface-800 border border-surface-700/50'
+                    : 'text-surface-600 hover:text-surface-900 bg-white hover:bg-surface-50 border border-surface-200'
               }`}
             >
+              {activeFilter === cat && (
+                <motion.div
+                  layoutId="activeFilterBubble"
+                  className={`absolute inset-0 rounded-full -z-10 shadow-lg ${
+                    darkMode ? 'bg-white' : 'bg-surface-900'
+                  }`}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                />
+              )}
               {cat}
             </button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Projects Grid */}
-        <div key={animKey} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProjects.map((project, idx) => {
-            const Icon = project.icon
-            return (
-              <div
-                key={project.id}
-                className={`group card-tilt card-glow-overlay rounded-2xl overflow-hidden opacity-0 animate-scale-in ${
-                  darkMode
-                    ? 'bg-surface-800/50 border border-surface-700/50 hover:border-primary-500/30 hover:shadow-xl hover:shadow-primary-500/10'
-                    : 'bg-white border border-surface-200 hover:border-primary-300 hover:shadow-2xl hover:shadow-primary-100/50'
-                }`}
-                style={{ animationDelay: `${idx * 80}ms` }}
-              >
-                {/* Card Top Gradient Bar — grows on hover */}
-                <div className={`h-1 gradient-bar-grow bg-gradient-to-r ${project.gradient}`} />
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <AnimatePresence mode='popLayout'>
+            {filteredProjects.map((project) => {
+              const Icon = project.icon
+              return (
+                <motion.div
+                  key={project.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+                  transition={{ duration: 0.4, type: "spring", bounce: 0.3 }}
+                  className={`group relative rounded-3xl overflow-hidden backdrop-blur-sm border transition-all duration-300 hover:-translate-y-2 ${
+                    darkMode
+                      ? 'bg-surface-900/40 border-white/5 hover:border-white/10 hover:bg-surface-900/60 hover:shadow-2xl hover:shadow-primary-500/10'
+                      : 'bg-white/60 border-black/5 hover:border-black/10 hover:bg-white hover:shadow-2xl hover:shadow-black/5'
+                  }`}
+                >
+                  {/* Subtle Gradient Glow Background */}
+                  <div className={`absolute -inset-px opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-gradient-to-br ${project.gradient} blur-xl`} />
 
-                <div className="relative z-10 p-6">
-                  {/* Icon + Category */}
-                  <div className="flex items-start justify-between mb-4">
-                    <div className={`p-3 rounded-xl bg-gradient-to-br ${project.gradient} text-white shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                      <Icon size={22} />
+                  <div className="relative z-10 p-8 h-full flex flex-col">
+                    {/* Header */}
+                    <div className="flex items-start justify-between mb-6">
+                      <div className={`p-4 rounded-2xl bg-gradient-to-br ${project.gradient} text-white shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500`}>
+                        <Icon size={24} />
+                      </div>
+                      <a href="#" className={`p-2 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110 ${
+                        darkMode ? 'bg-white/10 text-white hover:bg-white/20' : 'bg-black/5 text-surface-900 hover:bg-black/10'
+                      }`}>
+                        <ArrowUpRight size={18} />
+                      </a>
                     </div>
-                    <span className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold uppercase tracking-wider transition-all duration-300 group-hover:scale-105 ${
-                      darkMode ? 'bg-surface-700/50 text-surface-200/60' : 'bg-surface-100 text-surface-500'
+                    
+                    {/* Category */}
+                    <span className={`inline-block mb-3 text-xs font-mono font-semibold uppercase tracking-wider ${
+                      darkMode ? 'text-primary-400' : 'text-primary-600'
                     }`}>
                       {project.category}
                     </span>
+
+                    {/* Title */}
+                    <h3 className={`font-display text-2xl font-bold mb-3 tracking-tight ${
+                      darkMode ? 'text-white' : 'text-surface-900'
+                    }`}>
+                      {project.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className={`text-sm leading-relaxed mb-6 flex-grow ${
+                      darkMode ? 'text-surface-300' : 'text-surface-600'
+                    }`}>
+                      {project.description}
+                    </p>
+
+                    <div className="mt-auto space-y-5">
+                      {/* Impact Badge */}
+                      <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-semibold ${
+                        darkMode ? 'bg-accent-500/10 text-accent-400 border border-accent-500/20' : 'bg-accent-50 text-accent-700 border border-accent-200'
+                      }`}>
+                        <BarChart3 size={14} className="group-hover:animate-bounce" />
+                        {project.impact}
+                      </div>
+
+                      {/* Tech Stack */}
+                      <div className="flex flex-wrap gap-2">
+                        {project.tech.map((t) => (
+                          <span
+                            key={t}
+                            className={`px-2.5 py-1 rounded-md text-[11px] font-semibold tracking-wide ${
+                              darkMode
+                                ? 'bg-surface-800 text-surface-300 border border-surface-700'
+                                : 'bg-surface-100 text-surface-600 border border-surface-200'
+                            }`}
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-
-                  {/* Title */}
-                  <h3 className={`font-bold text-lg mb-2 transition-colors duration-300 ${
-                    darkMode ? 'text-white group-hover:text-primary-300' : 'text-surface-900 group-hover:text-primary-600'
-                  }`}>
-                    {project.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className={`text-sm leading-relaxed mb-4 ${
-                    darkMode ? 'text-surface-200/60' : 'text-surface-600'
-                  }`}>
-                    {project.description}
-                  </p>
-
-                  {/* Impact Badge */}
-                  <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold mb-4 transition-all duration-300 group-hover:scale-105 ${
-                    darkMode ? 'bg-accent-500/10 text-accent-400 border border-accent-500/20 group-hover:bg-accent-500/20' : 'bg-accent-50 text-accent-600 border border-accent-200 group-hover:bg-accent-100'
-                  }`}>
-                    <BarChart3 size={12} className="group-hover:animate-bounce" />
-                    {project.impact}
-                  </div>
-
-                  {/* Tech Stack Tags */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className={`skill-pill px-2 py-1 rounded-md text-[11px] font-medium ${
-                          darkMode
-                            ? 'bg-surface-700/50 text-surface-200/70'
-                            : 'bg-surface-100 text-surface-600'
-                        }`}
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )
-          })}
-        </div>
+                </motion.div>
+              )
+            })}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   )

@@ -41,6 +41,55 @@
       "vitejs_plugin_react"
     ],
     "2": [
+      "src_app",
+      "src_app_app",
+      "src_components_experience",
+      "src_components_experience_categories",
+      "src_components_experience_experience",
+      "src_components_experience_experiences",
+      "src_components_metrics",
+      "src_components_metrics_metriccard",
+      "src_components_metrics_metrics",
+      "src_components_metrics_usecountup",
+      "src_components_navbar",
+      "src_components_navbar_navbar",
+      "src_components_navbar_navlinks",
+      "src_components_projects",
+      "src_components_projects_projectcategories",
+      "src_components_projects_projects",
+      "src_main"
+    ],
+    "3": [
+      "clsx",
+      "framer_motion",
+      "lucide_react",
+      "package_dependencies",
+      "package_dependencies_clsx",
+      "package_dependencies_framer_motion",
+      "package_dependencies_lucide_react",
+      "package_dependencies_react",
+      "package_dependencies_react_dom",
+      "package_dependencies_tailwind_merge",
+      "react",
+      "react_dom",
+      "tailwind_merge"
+    ],
+    "4": [
+      "src_components_contact",
+      "src_components_contact_contact",
+      "src_components_contact_containervariants",
+      "src_components_contact_itemvariants",
+      "src_components_footer",
+      "src_components_footer_footer",
+      "src_components_hero",
+      "src_components_hero_containervariants",
+      "src_components_hero_hero",
+      "src_components_hero_itemvariants",
+      "src_components_icons",
+      "src_components_icons_githubicon",
+      "src_components_icons_linkedinicon"
+    ],
+    "5": [
       "package",
       "package_name",
       "package_private",
@@ -52,31 +101,6 @@
       "package_type",
       "package_version"
     ],
-    "3": [
-      "lucide_react",
-      "package_dependencies",
-      "package_dependencies_lucide_react",
-      "package_dependencies_react",
-      "package_dependencies_react_dom",
-      "react",
-      "react_dom"
-    ],
-    "4": [
-      "src_app",
-      "src_app_app",
-      "src_components_contact_contact",
-      "src_components_footer_footer",
-      "src_components_hero_hero",
-      "src_main"
-    ],
-    "5": [
-      "src_components_contact",
-      "src_components_footer",
-      "src_components_hero",
-      "src_components_icons",
-      "src_components_icons_githubicon",
-      "src_components_icons_linkedinicon"
-    ],
     "6": [
       "ref_dom",
       "ref_dom_iterable",
@@ -84,49 +108,24 @@
       "tsconfig_compileroptions_lib"
     ],
     "7": [
-      "src_components_metrics",
-      "src_components_metrics_metriccard",
-      "src_components_metrics_metrics",
-      "src_components_metrics_usecountup"
-    ],
-    "8": [
-      "src_components_experience",
-      "src_components_experience_experience",
-      "src_components_experience_experiences"
-    ],
-    "9": [
-      "src_components_navbar",
-      "src_components_navbar_navbar",
-      "src_components_navbar_navlinks"
-    ],
-    "10": [
-      "src_components_projects",
-      "src_components_projects_projectcategories",
-      "src_components_projects_projects"
-    ],
-    "11": [
       "src_components_skills",
       "src_components_skills_categories",
       "src_components_skills_skills"
     ],
-    "12": [
+    "8": [
       "vite_config"
     ]
   },
   "cohesion": {
     "0": 0.10526315789473684,
     "1": 0.11764705882352941,
-    "2": 0.2,
-    "3": 0.2857142857142857,
-    "4": 0.4,
-    "5": 0.7333333333333333,
+    "2": 0.16176470588235295,
+    "3": 0.15384615384615385,
+    "4": 0.23076923076923078,
+    "5": 0.2,
     "6": 0.5,
     "7": 0.6666666666666666,
-    "8": 0.6666666666666666,
-    "9": 0.6666666666666666,
-    "10": 0.6666666666666666,
-    "11": 0.6666666666666666,
-    "12": 1.0
+    "8": 1.0
   },
   "gods": [
     {
@@ -155,28 +154,28 @@
       "degree": 4
     },
     {
-      "id": "src_app_app",
-      "label": "App()",
+      "id": "tsconfig_include",
+      "label": "include",
       "degree": 2
     },
     {
-      "id": "src_components_contact_contact",
-      "label": "Contact()",
+      "id": "package_devdependencies_tailwindcss_vite",
+      "label": "@tailwindcss/vite",
       "degree": 2
     },
     {
-      "id": "src_components_experience_experience",
-      "label": "Experience()",
+      "id": "package_devdependencies_types_react",
+      "label": "@types/react",
       "degree": 2
     },
     {
-      "id": "src_components_footer_footer",
-      "label": "Footer()",
+      "id": "package_devdependencies_types_react_dom",
+      "label": "@types/react-dom",
       "degree": 2
     },
     {
-      "id": "src_components_hero_hero",
-      "label": "Hero()",
+      "id": "package_devdependencies_vitejs_plugin_react",
+      "label": "@vitejs/plugin-react",
       "degree": 2
     }
   ],

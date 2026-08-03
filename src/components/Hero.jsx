@@ -1,218 +1,177 @@
-import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import { ChevronDown, Mail, Download, ArrowRight, Sparkles } from 'lucide-react'
 import { GithubIcon as Github, LinkedinIcon as Linkedin } from './icons.jsx'
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2
+    }
+  }
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', stiffness: 100, damping: 12 }
+  }
+}
+
 export default function Hero({ darkMode }) {
-  const [loaded, setLoaded] = useState(false)
-
-  useEffect(() => {
-    // Trigger stagger entrance after mount
-    const timer = setTimeout(() => setLoaded(true), 100)
-    return () => clearTimeout(timer)
-  }, [])
-
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-      {/* Decorative grid */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: `linear-gradient(rgba(99,102,241,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.3) 1px, transparent 1px)`,
-        backgroundSize: '60px 60px'
+      {/* Dynamic Grid Background */}
+      <div className="absolute inset-0 opacity-[0.05]" style={{
+        backgroundImage: `linear-gradient(${darkMode ? 'rgba(255,255,255,1)' : 'rgba(0,0,0,1)'} 1px, transparent 1px), linear-gradient(90deg, ${darkMode ? 'rgba(255,255,255,1)' : 'rgba(0,0,0,1)'} 1px, transparent 1px)`,
+        backgroundSize: '40px 40px',
+        maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
+        WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)'
       }} />
 
-      {/* Floating geometric shapes */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Large morphing blob */}
-        <div
-          className={`absolute top-[15%] right-[10%] w-48 h-48 opacity-[0.06] animate-morph-blob ${
-            darkMode ? 'bg-primary-500' : 'bg-primary-400'
-          }`}
-          style={{ animation: 'morph-blob 15s ease-in-out infinite, float 8s ease-in-out infinite' }}
-        />
-        {/* Spinning ring */}
-        <div
-          className="absolute bottom-[25%] left-[8%] w-32 h-32 rounded-full border border-primary-500/10 animate-spin-slow"
-        />
-        {/* Floating dots */}
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            className={`particle w-1.5 h-1.5 ${
-              darkMode ? 'bg-primary-400/20' : 'bg-primary-500/15'
-            }`}
-            style={{
-              top: `${15 + i * 14}%`,
-              left: `${5 + i * 17}%`,
-              animation: `float ${5 + i * 1.5}s ease-in-out infinite ${i * 0.8}s`,
-            }}
-          />
-        ))}
-        {/* Accent dots on right */}
-        {[...Array(4)].map((_, i) => (
-          <div
-            key={`r${i}`}
-            className={`particle w-1 h-1 ${
-              darkMode ? 'bg-accent-400/20' : 'bg-accent-500/15'
-            }`}
-            style={{
-              top: `${25 + i * 18}%`,
-              right: `${8 + i * 10}%`,
-              animation: `float-delayed ${6 + i * 1.2}s ease-in-out infinite ${i * 1.2}s`,
-            }}
-          />
-        ))}
-        {/* Decorative line */}
-        <div className="absolute top-[45%] left-0 w-full h-px opacity-[0.04]">
-          <div className={`h-full ${darkMode ? 'bg-primary-500' : 'bg-primary-400'}`}
-            style={{ animation: 'draw-line 2s ease-out 1s forwards', width: 0 }} />
-        </div>
-      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+        <motion.div 
+          className="text-center max-w-4xl mx-auto"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          {/* Status badge */}
+          <motion.div variants={itemVariants} className="flex justify-center mb-8">
+            <div
+              className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium shadow-lg backdrop-blur-md border ${
+                darkMode ? 'bg-white/5 border-white/10 text-primary-300' : 'bg-black/5 border-black/10 text-primary-600'
+              }`}
+            >
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-accent-500" />
+              </span>
+              <span>Available for new opportunities</span>
+            </div>
+          </motion.div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center max-w-4xl mx-auto">
-          {/* Status badge — stagger 0 */}
-          <div
-            className={`inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 text-sm font-medium opacity-0 ${
-              loaded ? 'animate-scale-in-bounce stagger-0' : ''
-            }`}
-            style={{
-              background: darkMode ? 'rgba(99,102,241,0.1)' : 'rgba(99,102,241,0.08)',
-              border: `1px solid ${darkMode ? 'rgba(99,102,241,0.2)' : 'rgba(99,102,241,0.15)'}`,
-            }}
-          >
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-500" />
-            </span>
-            <span className={darkMode ? 'text-primary-300' : 'text-primary-600'}>Available for new opportunities</span>
-          </div>
-
-          {/* Name — stagger 1 */}
-          <h1
-            className={`text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6 opacity-0 ${
-              loaded ? 'animate-fade-in-up stagger-1' : ''
+          {/* Name */}
+          <motion.h1
+            variants={itemVariants}
+            className={`font-display text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter mb-6 leading-tight ${
+              darkMode ? 'text-white' : 'text-surface-900'
             }`}
           >
-            <span className={darkMode ? 'text-white' : 'text-surface-900'}>Hi, I'm </span>
+            Crafting Digital
+            <br />
             <span
               className="bg-gradient-to-r from-primary-400 via-accent-400 to-primary-500 bg-clip-text text-transparent animate-gradient-shift"
               style={{ backgroundSize: '200% 200%' }}
             >
-              Muhammad Ali
+              Experiences.
             </span>
-          </h1>
+          </motion.h1>
 
-          {/* Subtitle with typing cursor — stagger 2 */}
-          <div
-            className={`flex items-center justify-center gap-3 mb-6 opacity-0 ${
-              loaded ? 'animate-fade-in-up stagger-2' : ''
-            }`}
-          >
-            <div className={`h-px w-12 animate-draw-line ${darkMode ? 'bg-surface-700' : 'bg-surface-300'}`} />
-            <p className={`text-lg sm:text-xl font-semibold tracking-wide uppercase typing-cursor ${
+          {/* Subtitle */}
+          <motion.div variants={itemVariants} className="flex items-center justify-center gap-4 mb-6">
+            <div className={`h-px w-8 sm:w-16 ${darkMode ? 'bg-surface-700' : 'bg-surface-300'}`} />
+            <p className={`font-mono text-sm sm:text-base font-semibold tracking-widest uppercase ${
               darkMode ? 'text-primary-400' : 'text-primary-600'
             }`}>
-              Full Stack Software Engineer
+              Muhammad Ali &bull; Software Engineer
             </p>
-            <div className={`h-px w-12 animate-draw-line ${darkMode ? 'bg-surface-700' : 'bg-surface-300'}`} />
-          </div>
+            <div className={`h-px w-8 sm:w-16 ${darkMode ? 'bg-surface-700' : 'bg-surface-300'}`} />
+          </motion.div>
 
-          {/* Description — stagger 3 */}
-          <p
-            className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed opacity-0 ${
-              loaded ? 'animate-fade-in-up stagger-3' : ''
-            } ${
-              darkMode ? 'text-surface-200/80' : 'text-surface-700'
+          {/* Description */}
+          <motion.p
+            variants={itemVariants}
+            className={`text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto mb-12 leading-relaxed font-light ${
+              darkMode ? 'text-surface-200' : 'text-surface-700'
             }`}
           >
-            5+ years of crafting <span className="font-semibold text-primary-400">enterprise-grade web applications</span> with
-            .NET Core, Angular, Microservices & Real-Time Systems.
-            Turning complex business requirements into scalable, performant solutions.
-          </p>
+            5+ years of building <span className="font-semibold text-primary-500">enterprise-grade web applications</span> with
+            .NET Core, Angular, and Modern Web Technologies. Turning complex business requirements into beautifully crafted solutions.
+          </motion.p>
 
-          {/* CTA Buttons — stagger 4 */}
-          <div
-            className={`flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 opacity-0 ${
-              loaded ? 'animate-fade-in-up stagger-4' : ''
-            }`}
-          >
-            <a
+          {/* CTA Buttons */}
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-14">
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               href="#projects"
               onClick={(e) => { e.preventDefault(); document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }) }}
-              className="group relative inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-500 hover:to-primary-400 shadow-lg shadow-primary-600/25 hover:shadow-primary-500/40 transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02] overflow-hidden"
+              className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold text-white bg-gradient-to-r from-primary-600 to-primary-500 shadow-xl shadow-primary-600/30 overflow-hidden"
             >
-              {/* Shimmer sweep on hover */}
-              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-              <Sparkles size={18} className="relative z-10" />
-              <span className="relative z-10">View Projects</span>
-              <ArrowRight size={16} className="relative z-10 group-hover:translate-x-1.5 transition-transform duration-300" />
-            </a>
-            <a
+              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              <Sparkles size={20} className="relative z-10" />
+              <span className="relative z-10">Explore Work</span>
+              <ArrowRight size={18} className="relative z-10 group-hover:translate-x-1.5 transition-transform duration-300" />
+            </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               href="#contact"
               onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }) }}
-              className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02] ${
+              className={`inline-flex items-center gap-2 px-8 py-4 rounded-2xl font-bold backdrop-blur-lg border transition-colors ${
                 darkMode
-                  ? 'text-surface-200 border border-surface-700 hover:border-primary-500/50 hover:text-white hover:bg-white/5'
-                  : 'text-surface-700 border border-surface-300 hover:border-primary-400 hover:text-primary-600 hover:bg-primary-50'
+                  ? 'text-white border-white/10 bg-white/5 hover:bg-white/10'
+                  : 'text-surface-900 border-black/10 bg-black/5 hover:bg-black/10'
               }`}
             >
-              <Mail size={18} />
-              Contact Me
-            </a>
-            <a
-              href="#"
-              className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-semibold transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02] ${
-                darkMode
-                  ? 'text-accent-400 border border-accent-500/30 hover:border-accent-500/60 hover:bg-accent-500/10'
-                  : 'text-accent-600 border border-accent-500/30 hover:border-accent-500/60 hover:bg-accent-50'
-              }`}
-            >
-              <Download size={18} />
-              Download Resume
-            </a>
-          </div>
+              <Mail size={20} />
+              Let's Talk
+            </motion.a>
+          </motion.div>
 
-          {/* Social Links — stagger 5 */}
-          <div
-            className={`flex items-center justify-center gap-4 opacity-0 ${
-              loaded ? 'animate-fade-in-up stagger-5' : ''
-            }`}
-          >
+          {/* Social Links */}
+          <motion.div variants={itemVariants} className="flex items-center justify-center gap-5">
             {[
               { icon: Linkedin, href: 'https://linkedin.com/in/Muhammad-ali-39b2741a7', label: 'LinkedIn' },
               { icon: Github, href: 'https://github.com', label: 'GitHub' },
               { icon: Mail, href: 'mailto:ali.amirsultan0317@gmail.com', label: 'Email' },
-            ].map(({ icon: Icon, href, label }, i) => (
-              <a
+            ].map(({ icon: Icon, href, label }) => (
+              <motion.a
+                whileHover={{ scale: 1.15, y: -4 }}
+                whileTap={{ scale: 0.9 }}
                 key={label}
                 href={href}
                 target={href.startsWith('http') ? '_blank' : undefined}
                 rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
                 aria-label={label}
-                className={`p-3 rounded-xl transition-all duration-300 transform hover:-translate-y-1 hover:scale-110 ${
+                className={`p-3.5 rounded-2xl backdrop-blur-md border transition-colors ${
                   darkMode
-                    ? 'text-surface-200/60 hover:text-white hover:bg-white/10 hover:shadow-lg hover:shadow-primary-500/10'
-                    : 'text-surface-500 hover:text-primary-600 hover:bg-primary-50 hover:shadow-lg hover:shadow-primary-200/50'
+                    ? 'text-surface-200 border-white/10 bg-white/5 hover:bg-primary-500 hover:border-primary-500 hover:text-white'
+                    : 'text-surface-700 border-black/10 bg-black/5 hover:bg-primary-500 hover:border-primary-500 hover:text-white'
                 }`}
               >
-                <Icon size={22} />
-              </a>
+                <Icon size={24} />
+              </motion.a>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
 
-      {/* Scroll indicator — stagger 6 */}
-      <div className={`absolute bottom-8 left-1/2 -translate-x-1/2 opacity-0 ${
-        loaded ? 'animate-fade-in-up stagger-7' : ''
-      }`}>
+      {/* Scroll indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
+      >
         <a href="#skills" onClick={(e) => { e.preventDefault(); document.querySelector('#skills')?.scrollIntoView({ behavior: 'smooth' }) }}
-          className={`flex flex-col items-center gap-2 group ${darkMode ? 'text-surface-200/40' : 'text-surface-400'}`}
+          className={`flex flex-col items-center gap-3 group ${darkMode ? 'text-surface-400' : 'text-surface-500'}`}
           aria-label="Scroll to skills section"
         >
-          <span className="text-xs font-medium uppercase tracking-widest group-hover:text-primary-400 transition-colors">Scroll</span>
-          <ChevronDown size={20} className="animate-bounce" />
+          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] group-hover:text-primary-400 transition-colors">Discover</span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ChevronDown size={24} className="opacity-70 group-hover:opacity-100" />
+          </motion.div>
         </a>
-      </div>
+      </motion.div>
     </section>
   )
 }
